@@ -8,8 +8,8 @@ class Transaksi extends StatefulWidget {
 }
 
 class _TransaksiState extends State<Transaksi> {
-  List<String> _options = ['Kaca', 'Pipa', 'Kran Besi'];
-  List<String> _cart = ['Kaca'];
+  final List<String> _options = ['Kaca', 'Pipa', 'Kran Besi'];
+  final List<String> _cart = ['Kaca'];
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _TransaksiState extends State<Transaksi> {
                 onSelected: (option) {
                   if (_cart.contains(option)) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('Item telah ditambahkan'),
                         backgroundColor: Colors.red,
                       ),
@@ -78,7 +78,7 @@ class _TransaksiState extends State<Transaksi> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Expanded(
@@ -94,11 +94,11 @@ class _TransaksiState extends State<Transaksi> {
                           children: [
                             Text(
                               _cart[index],
-                              style: TextStyle(fontSize: 18),
+                              style: const TextStyle(fontSize: 18),
                             ),
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 65,
                                   child: Expanded(
                                     child: TextField(
@@ -114,7 +114,7 @@ class _TransaksiState extends State<Transaksi> {
                                         _cart.remove(_cart[index]);
                                       });
                                     },
-                                    icon: Icon(Icons.delete))
+                                    icon: const Icon(Icons.delete))
                               ],
                             )
                           ],

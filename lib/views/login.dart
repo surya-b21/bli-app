@@ -1,5 +1,6 @@
-import 'package:bli_app/views/home.dart';
+import 'package:bli_app/bloc/auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -103,12 +104,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ),
-                      );
+                      context.read<AuthBloc>().add(
+                            LoggedIn(
+                                email: _emailController.text,
+                                password: _passwordController.text),
+                          );
                     },
                     child: const Text(
                       'Login',

@@ -1,11 +1,19 @@
 // ignore_for_file: avoid_print
 
+import 'package:bli_app/bloc/auth/auth_bloc.dart';
+import 'package:bli_app/views/home.dart';
 import 'package:bli_app/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  Bloc.observer = SimpleBlocObserver();
+  runApp(
+    BlocProvider<AuthBloc>(
+      create: (context) => AuthBloc()..add(AppStart()),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class SimpleBlocObserver extends BlocObserver {
@@ -58,7 +66,21 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
-      home: const Login(),
+      home: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthAuthenticated) {
+            return const Home();
+          } else if (state is AuthUnauthenticated) {
+            return const Login();
+          }
+
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
+      ),
     );
   }
 }
