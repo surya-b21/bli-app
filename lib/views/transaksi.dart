@@ -121,15 +121,6 @@ class _TransaksiState extends State<Transaksi> {
 
                                         payload.add(data);
                                       }
-
-                                      // if (_timer?.isActive ?? false) {
-                                      //   _timer!.cancel();
-                                      // }
-                                      // _timer = Timer(
-                                      //     const Duration(seconds: 3), () {
-                                      //   print(
-                                      //       "Field ke ${index + 1} dengan nilai $value");
-                                      // });
                                     },
                                     textAlign: TextAlign.center,
                                     decoration: const InputDecoration(
@@ -137,15 +128,16 @@ class _TransaksiState extends State<Transaksi> {
                                   ),
                                 ),
                                 IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        payload.removeWhere((element) =>
-                                            element['item_id'] ==
-                                            _cart[index].id);
-                                        _cart.remove(_cart[index]);
-                                      });
-                                    },
-                                    icon: const Icon(Icons.delete))
+                                  onPressed: () {
+                                    setState(() {
+                                      payload.removeWhere((element) =>
+                                          element['item_id'] ==
+                                          _cart[index].id);
+                                      _cart.remove(_cart[index]);
+                                    });
+                                  },
+                                  icon: const Icon(Icons.delete),
+                                )
                               ],
                             )
                           ],

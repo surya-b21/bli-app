@@ -35,21 +35,41 @@ class _ItemListState extends State<ItemList> {
         child: BlocBuilder<TransaksiCubit, TransaksiState>(
           builder: (context, state) {
             if (state is ItemFound) {
-              return ListView.builder(
-                itemCount: state.data.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    leading: Text(
-                      state.data[index].qty.toString(),
-                      style: const TextStyle(fontSize: 17),
+              int total = 0;
+              for (int i = 0; i < state.data.length; i++) {
+                total = total + state.data[i].hargaSetelahPajak;
+              }
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Total Rp. ${currency.format(total)}",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
-                    title: Text(state.data[index].item.nama,
-                        style: const TextStyle(fontSize: 17)),
-                    trailing: Text(
-                        'Rp. ${currency.format(state.data[index].hargaSetelahPajak)}',
-                        style: const TextStyle(fontSize: 17)),
                   ),
-                ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.data.length,
+                      itemBuilder: (context, index) => Card(
+                        child: ListTile(
+                          leading: Text(
+                            "${state.data[index].qty.toString()} ${state.data[index].item.unitOfMaterial}",
+                            style: const TextStyle(fontSize: 17),
+                          ),
+                          title: Text(state.data[index].item.nama,
+                              style: const TextStyle(fontSize: 17)),
+                          trailing: Text(
+                              'Rp. ${currency.format(state.data[index].hargaSetelahPajak)}',
+                              style: const TextStyle(fontSize: 17)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               );
             }
             return const CircularProgressIndicator();
