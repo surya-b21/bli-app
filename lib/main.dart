@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:bli_app/bloc/auth/auth_bloc.dart';
+import 'package:bli_app/cubit/transaksi/transaksi_cubit.dart';
 import 'package:bli_app/views/home.dart';
 import 'package:bli_app/views/login.dart';
 import 'package:flutter/material.dart';
@@ -69,12 +70,15 @@ class MyApp extends StatelessWidget {
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthAuthenticated) {
-            return const Home();
+            return BlocProvider(
+              create: (context) => TransaksiCubit(),
+              child: const Home(),
+            );
           } else if (state is AuthUnauthenticated) {
             return const Login();
           }
 
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),

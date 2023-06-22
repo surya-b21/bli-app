@@ -1,5 +1,8 @@
+import 'package:bli_app/bloc/auth/auth_bloc.dart';
+import 'package:bli_app/cubit/transaksi/transaksi_cubit.dart';
 import 'package:bli_app/views/transaksi.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,6 +13,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    // TODO: implement initState
+    context.read<TransaksiCubit>().getInvoice();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -18,11 +28,38 @@ class _HomeState extends State<Home> {
           'BLI Kasir',
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(Logout());
+            },
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('Anda belum mempunyai transaksi')],
+      body: Center(
+        child: BlocBuilder<TransaksiCubit, TransaksiState>(
+          builder: (context, state) {
+            if (state is TransaksiNotFound) {
+              return const Text('Anda belum mempunyai transaksi');
+            } else if (state is TransaksiFound) {
+              return ListView.builder(
+                itemCount: state.data.length,
+                itemBuilder: (context, index) => Card(
+                  child: ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(state.data[index]["${index + 1}"]),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+
+            return const CircularProgressIndicator();
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

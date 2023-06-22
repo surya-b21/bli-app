@@ -37,7 +37,7 @@ class UserServices {
       '/logout',
       options: Options(
         headers: {
-          "Authorization": "Beare $token",
+          "Authorization": "Bearer $token",
         },
       ),
     );

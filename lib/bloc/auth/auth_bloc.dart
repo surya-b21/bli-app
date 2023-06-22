@@ -37,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
       String? token = await _storage.read(key: 'token');
       await _userSevice.logout(token!);
+      emit(AuthUnauthenticated());
     });
   }
 }
