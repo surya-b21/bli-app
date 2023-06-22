@@ -1,6 +1,6 @@
-# bli_app
+# BLI APP
 
-A new Flutter project.
+for test purpose only
 
 ## Getting Started
 
