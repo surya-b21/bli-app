@@ -56,7 +56,6 @@ class _HomeState extends State<Home> {
                     ),
                     onTap: () {
                       Map map = state.data[index];
-                      print(map);
                       String key = map.keys.firstWhere(
                         (k) => map[k] == state.data[index]["${index + 1}"],
                         orElse: () => '',
@@ -81,13 +80,17 @@ class _HomeState extends State<Home> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const Transaksi(),
             ),
           );
+
+          setState(() {
+            context.read<TransaksiCubit>().getInvoice();
+          });
         },
         label: const Text(
           'Transaksi',

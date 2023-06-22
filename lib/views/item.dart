@@ -41,18 +41,18 @@ class _ItemListState extends State<ItemList> {
                   child: ListTile(
                     leading: Text(
                       state.data[index].qty.toString(),
-                      style: TextStyle(fontSize: 17),
+                      style: const TextStyle(fontSize: 17),
                     ),
                     title: Text(state.data[index].item.nama,
-                        style: TextStyle(fontSize: 17)),
+                        style: const TextStyle(fontSize: 17)),
                     trailing: Text(
                         'Rp. ${currency.format(state.data[index].hargaSetelahPajak)}',
-                        style: TextStyle(fontSize: 17)),
+                        style: const TextStyle(fontSize: 17)),
                   ),
                 ),
               );
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           },
         ),
       ),
