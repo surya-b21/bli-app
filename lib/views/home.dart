@@ -1,5 +1,6 @@
 import 'package:bli_app/bloc/auth/auth_bloc.dart';
 import 'package:bli_app/cubit/transaksi/transaksi_cubit.dart';
+import 'package:bli_app/views/item.dart';
 import 'package:bli_app/views/transaksi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +54,23 @@ class _HomeState extends State<Home> {
                         Text(state.data[index]["${index + 1}"]),
                       ],
                     ),
+                    onTap: () {
+                      Map map = state.data[index];
+                      print(map);
+                      String key = map.keys.firstWhere(
+                        (k) => map[k] == state.data[index]["${index + 1}"],
+                        orElse: () => '',
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BlocProvider(
+                            create: (context) => TransaksiCubit(),
+                            child: ItemList(sort: int.parse(key)),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               );

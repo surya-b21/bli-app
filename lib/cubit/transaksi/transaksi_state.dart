@@ -14,3 +14,11 @@ class TransaksiFound extends TransaksiState {
 class TransaksiNotFound extends TransaksiState {}
 
 class TransaksiLoading extends TransaksiState {}
+
+class ItemFound extends TransaksiState {
+  final List<ItemModel> data;
+
+  ItemFound({required this.data});
+}
+
+class ItemLoading extends TransaksiState {}
